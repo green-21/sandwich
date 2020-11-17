@@ -4,17 +4,17 @@ from django.db import models
 class Account(models.Model):
     id = models.CharField(max_length=20, primary_key="true")
     pw = models.CharField(max_length=50)
-    picture = models.CharField(max_length=200)
+    picture = models.CharField(max_length=200, default="0.jpg")
     name = models.CharField(max_length=20)
     msg = models.CharField(max_length=200, blank="true", default="")
-    time = models.DateTimeField('date published')
+    time = models.DateTimeField('date published', auto_now_add=True)
 
 class Post(models.Model):
     no = models.AutoField(primary_key="true")
     id = models.ForeignKey(Account, on_delete=models.CASCADE)
     picture = models.CharField(max_length=200)
     msg = models.CharField(max_length=200)
-    time = models.DateTimeField('date published')
+    time = models.DateTimeField()
 
 class Comment(models.Model):
     no = models.AutoField(primary_key="true")

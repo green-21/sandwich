@@ -28,15 +28,23 @@ function idMsgCheck(event) {
     let idRule = /^[0-9a-zA-Z_]{5,15}$/
     let idVal = $('#user_id').val();
     if (idRule.test(idVal)) {
-        onIdMsg(1); //ajax
-    } else {
-        onIdMsg(0);
-        //red-msg
+        $.ajax({
+            url: "register_id_check",
+            data: { user_id : idVal },
+            method: "GET",
+            dataType: "json"
+        })
+        .done(function(result) {
+            if(result == "1"){
+                onIdMsg(1);
+                return;
+            }
+        });
     }
+    onIdMsg(0);
 }
 
 $('#user_id').keyup(idMsgCheck);
-$('#user_id').keydown(idMsgCheck);
 
 function checkPW(event) {
     isPW = false;
