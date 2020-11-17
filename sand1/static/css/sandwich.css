@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap');
+
+#sandwich {
+    font-family: 'Gloria Hallelujah', cursive;
+    font-weight: 400;
+}
+/* login and register */
+.sand-form-content {
+    background-color: white;
+}
+
+form.sand-login-body .sand-hidden {
+    display:none;
+}
+form.sand-login-body .sand-msg {
+    font-size:0.8em;
+    padding-left:5px;
+}
+form.sand-login-body .sand-msg-red {
+    color:red ;
+}
+form.sand-login-body .sand-msg-green {
+    color:green;
+}
+
+/* home and post*/
+.sand-post { background-color: white; }
+section, article { margin:0;}
+.ui-content { padding:0;}
+
+a.sand-post-writer {
+    color:black;
+    text-decoration: none;
+}
+.sand-post-header .sand-writer-thumbnail {
+    border-radius: 100%;
+}
+.sand-post-pic {margin:0; padding:0;}
+
+.sand-post-detail .ui-listview, .sand-comment .ui-listview {margin:0; }
+
+
+.sand-detail-footer {text-align: center;}
+.sand-detail-footer .ui-btn { padding-bottom:0; }
+
+.ui-controlgroup-controls { width:100%;}
+.controlgroup-textinput{
+    padding-top:.23em;
+    padding-bottom:.23em;
+}
+
+.ui-controlgroup { 
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+    margin: 0;
+}
+.sand-comment-form-background
+{
+    background-color: #F9F9F9;
+}
+
+img.sand-thumbnail-big {
+    position: relative;
+    margin-top:10px;
+    left:50%;
+    /* margin-top:-128px; */
+    margin-left:-64px;
+    width:128px;
+    height:128px;
+    border-radius: 100% !important;
+}
+
+img.sand-thumbnail {
+    position: relative;
+    top:50% !important;
+    border-radius: 100% !important;
+    width:48px;
+    height:48px;
+    margin:5px;
+    margin-top:-24px;
+    margin-left: 10px;
+}
+.ui-listview.sand-comment-list .ui-btn {
+    padding-top: 0.1em;
+    padding-left: 70px;
+    padding-bottom:0;
+}
+.ui-listview.sand-comment-list .ui-btn h4 {
+    margin:0;
+}
+.ui-listview.sand-comment-list .ui-btn p {
+    white-space:normal;
+    margin: 0.2em 0 0.2em 1em;
+}
+.sand-profile p { text-align: center;}
+.sand-profile h5 { text-align: center;}
+
+.ui-content .ui-listview {
+    margin:0;
+}
+
+article.sand-profile-extra h5 {
+    margin: 0.8em 0;
+}
+article.sand-profile-extra p {
+    margin: 0.5em;
+}
+
+
+div[data-role="dialog"] section  {
+    padding:10px 10px 0 10px;
+}

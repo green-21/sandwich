@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css"/>
+    
+    <link rel="stylesheet" href="{% static 'css/sandwich.css' %}"/> 
+    <link rel="stylesheet" href="{% static 'css/sandwich-PC.css' %}" media="only screen and (min-width:600px)"/>
+    <link rel="stylesheet" href="{% static 'css/sandwich-mobile.css' %}" media="only screen and (max-width:599px)"/>
+
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.10.0/js/md5.min.js"></script>
+
+    <script src="{% static 'js/login.js' %}" defer></script>
+
+    <title>sandwich</title>
+</head>
+<body>
+<div data-role="page" id="sand-login" class="sand-page">
+    <section data-role="content" class="sand-form-content">
+        <header class="sand-login-header">
+            <h1 id="sandwich" align="center">S A N D W I C H</h1>
+        </header>
+        <form name="loginform" action="/login_request" method="POST" class=sand-login-body>
+                {% csrf_token %}
+                <input data-corners="false" type="text" class="sand-login-input-text" name="user_id" id="user_id" placeholder="아이디">
+                <input  data-corners="false" type="password" class="sand-login-input-text" name="user_pw" id="user_pw" placeholder="비밀번호">
+                <input data-corners="false" class="sand-login-btn" type="submit" value="로그인" data-theme="b" id="login-btn">
+        </form>
+        <footer class="sand-login-footer">
+            <a href="register" data-role="button" data-corners="false">회원가입</a>
+        </footer>
+    </section>
+</div>
+<div data-role="dialog" id="sand-login-err-blank">
+    <header data-role="header">로그인 오류</header>
+    <div data-role="content">
+        <p>빈칸을 모두 채워주세요.</p>
+    </div>
+</div>
+</body>
+</html>

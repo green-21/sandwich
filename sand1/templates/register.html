@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css"/>
+    <link rel="stylesheet" href="{% static 'css/sandwich.css' %}"/> 
+    <link rel="stylesheet" href="{% static 'css/sandwich-PC.css' %}" media="only screen and (min-width:600px)"/>
+    <link rel="stylesheet" href="{% static 'css/sandwich-mobile.css' %}" media="only screen and (max-width:599px)"/>
+
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.10.0/js/md5.min.js"></script>
+
+    <script src="{% static 'js/register.js' %}" defer></script>
+    <title>sandwich</title>
+</head>
+<body>
+<div data-role="page" id="sand-register" class="sand-page">
+    <section data-role="content" class="sand-form-content">
+        <header class="sand-login-header">
+            <h1 id="sandwich" align="center">r e g i s t e r</h1>
+        </header>
+        <form method="post" action="register_request" class=sand-login-body name="registerform">
+            {% csrf_token %}
+            <input data-corners="false" type="text" class="sand-login-input-text" name="user_id" id="user_id" placeholder="아이디">
+            <label for="user_id" style="font-size:0.7em; padding-left:10px;">5자이상 영어대소문자 숫자 언더바(_)</label>
+            <label class="sand-hidden sand-msg-red sand-msg" for="user_id" id="imp_id_msg">불가능한 아이디입니다.</label>
+            <label class="sand-hidden sand-msg-green sand-msg" for="user_id" id="p_id_msg">사용 가능 합니다.</label>
+            <input  data-corners="false" type="password" class="sand-login-input-text" name="user_pw" id="user_pw" placeholder="비밀번호">
+            <input  data-corners="false" type="password" class="sand-login-input-text" id="user_pw2" placeholder="비밀번호 확인">
+            <label class="sand-hidden sand-msg-red sand-msg" for="user_pw2" id="pw_check_msg">비밀번호가 다릅니다.</label>
+            <input  data-corners="false" type="text" class="sand-login-input-text" name="user_name" id="user_name" placeholder="이름">
+            <input data-corners="false" class="sand-login-btn" type="submit" value="회원가입" data-theme="b">
+        </form>
+        <footer class="sand-login-footer">
+
+            <a href="#" data-rel ="back" data-role="button" data-corners="false">뒤로가기</a>
+        </footer>
+    </section>
+</div>
+</body>
+</html>

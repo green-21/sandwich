@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css"/>
+    <link rel="stylesheet" href="..\css\sandwich.css"/> 
+    <link rel="stylesheet" href="..\css\sandwich-PC.css" media="only screen and (min-width:600px)"/>
+    <link rel="stylesheet" href="..\css\sandwich-mobile.css" media="only screen and (max-width:599px)"/>
+
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <title>sandwich</title>
+</head>
+<body>
+<div data-role="page" id="sand-search" class="sand-page">
+    <header data-role="header" data-position="fixed" data-theme="b">
+        <h1>검색</h1>
+    </header>
+    <section data-role="content">
+        <article class="sdf">
+            <ul data-role="listview" data-filter="true" >
+                <li>
+                    <a>
+                        <img src="..\static\1.jpg" alt="" class="sand-thumbnail">
+                        <h4>_lookatstory</h4>
+                        <p>정하윤</p>
+                    </a>
+                    <a href="#" data-icon="plus"></a>
+                </li>
+                <li>
+                    <a>
+                        <img src="..\static\4.jpg" alt="" class="sand-thumbnail">
+                        <h4>_lookatstory</h4>
+                        <p>정하윤</p>
+                    </a>
+                    <a href="#" data-icon="minus" data-theme="b"></a>
+                </li>
+            </ul>
+        </article>
+    </section>
+    <footer data-role="footer" data-position="fixed" data-id="">
+        <div data-role="navbar"  >
+            <ul>
+                <li><a href="home.html" data-icon="home" ></a></li>
+                <li><a href="#" data-icon="search" class="ui-btn-active ui-state-persist"></a></li>
+                <li><a href="#" data-icon="plus"></a></li>
+                <li><a href="#" data-icon="heart"></a></li>
+                <li><a href="#" data-icon="user"></a></li>
+            </ul>
+        </div>
+    </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,76 @@
+div[data-role="page"] section { /*content section은 항상 600 가운데 정렬을 유지한다.*/
+    position: relative;
+    width:600px;
+    margin-left: -300px;
+    left:50%;
+}
+
+/********************/
+/* login - register */
+/********************/
+section.sand-form-content {
+    position: absolute !important;
+    top:50%;
+    margin-top:-200px;
+    padding: 5px;
+    box-shadow: 0.5px 0.5px 5px rgb(150,150,150);
+}
+
+#sand-login .sand-login-header {
+    font-size:2em;
+    margin-bottom: 2em;
+    /* margin: 2em 0 3em 0; */
+}
+#sand-login .sand-login-body {
+    margin-bottom:1.5em;
+}
+
+/********************/
+/*  main and post   */
+/********************/
+article.sand-post, .sand-profile article{
+    margin-top:0.25em;
+    margin-bottom:2em;
+    border:1px solid rgb(211, 211, 211);
+    border-radius: 10px;
+
+    overflow: hidden;
+}
+.sand-post-header {
+    margin-bottom:0.2em;
+}
+.sand-post-header .sand-writer-thumbnail {
+    width:48px;
+    height:48px;
+    margin:0.2em 0.5em 0 0.5em;
+    
+}
+.sand-post-pic {width:600px; padding:0; margin:0;}
+.sand-post-pic img {
+    width:600px;
+}
+
+/* post-detail */
+
+.sand-post ul{
+    width:600px;
+}
+
+form#sand-comment-form {
+    position: relative;
+    margin-left:-300px;
+    left:50%;
+    width:600px;
+}
+#sand-post .ui-footer {
+    border:none;
+}
+.controlgroup-textinput {
+    width:520px;
+}
+
+.sand-post-thumbnail {
+    width:200px;
+    height:200px;
+}
+
