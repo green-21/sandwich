@@ -8,6 +8,9 @@
 .sand-form-content {
     background-color: white;
 }
+.sand-post-end {
+    background-color: white;
+}
 
 form.sand-login-body .sand-hidden {
     display:none;

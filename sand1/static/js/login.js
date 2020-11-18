@@ -7,5 +7,4 @@ $('form[name=loginform]').submit(function(event) {
     }
     let pwd = md5(b.val());
     b.val(pwd);
-    return true;
 });

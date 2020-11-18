@@ -3,9 +3,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css"/>
-    <link rel="stylesheet" href="..\css\sandwich.css"/> 
-    <link rel="stylesheet" href="..\css\sandwich-PC.css" media="only screen and (min-width:600px)"/>
-    <link rel="stylesheet" href="..\css\sandwich-mobile.css" media="only screen and (max-width:599px)"/>
 
     <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
@@ -17,11 +14,15 @@
         <h1>글쓰기</h1>
     </header>
     <section data-role="content">
-        <label for="imgfile">사진 선택</label>
-        <input type="file" name="" id="imgfile" accept="image/*">
-        <label for="">글</label>
-        <textarea name="" id=""></textarea>
-        <a href="#" data-role="button">작성하기</a>
+        <form action="write_request" method="POST" name="writeform" id="writeform" enctype="multipart/form-data" data-ajax="false">
+            {% csrf_token %}
+            <label for="post_pic">사진 선택</label>
+            <input type="file" name="post_pic" id="post_pic">
+            <label for="post_msg">글</label>
+            <textarea name="post_msg" id="post_msg"></textarea>
+            <input type="submit" value="작성하기"> 
+        </form>
+
     </section>
 </div>
 </body>

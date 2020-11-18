@@ -4,24 +4,24 @@ from django.db import models
 class Account(models.Model):
     id = models.CharField(max_length=20, primary_key="true")
     pw = models.CharField(max_length=50)
-    picture = models.CharField(max_length=200, default="0.jpg")
+    picture = models.ImageField(blank=True, upload_to="profile")
     name = models.CharField(max_length=20)
     msg = models.CharField(max_length=200, blank="true", default="")
-    time = models.DateTimeField('date published', auto_now_add=True)
+    created_on = models.DateTimeField(auto_now_add=True, blank=True)
 
 class Post(models.Model):
     no = models.AutoField(primary_key="true")
     id = models.ForeignKey(Account, on_delete=models.CASCADE)
-    picture = models.CharField(max_length=200)
+    picture = models.ImageField(blank=True, upload_to="post")
     msg = models.CharField(max_length=200)
-    time = models.DateTimeField()
+    created_on = models.DateTimeField(auto_now_add=True, blank=True)
 
 class Comment(models.Model):
     no = models.AutoField(primary_key="true")
     post_no = models.ForeignKey(Post, on_delete=models.CASCADE)
     id = models.ForeignKey(Account,on_delete=models.CASCADE)
     msg = models.CharField(max_length=200)
-    time = models.DateTimeField('date published')
+    created_on = models.DateTimeField(auto_now_add=True, blank=True)
 
 class Follow(models.Model):
     no = models.AutoField(primary_key="true")

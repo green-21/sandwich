@@ -28,6 +28,7 @@ section.sand-form-content {
 /********************/
 /*  main and post   */
 /********************/
+
 article.sand-post, .sand-profile article{
     margin-top:0.25em;
     margin-bottom:2em;
@@ -35,6 +36,10 @@ article.sand-post, .sand-profile article{
     border-radius: 10px;
 
     overflow: hidden;
+}
+article.sand-post-end {
+    border:1px solid rgb(211, 211, 211);
+    border-radius: 10px ;
 }
 .sand-post-header {
     margin-bottom:0.2em;

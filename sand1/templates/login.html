@@ -23,14 +23,15 @@
         <header class="sand-login-header">
             <h1 id="sandwich" align="center">S A N D W I C H</h1>
         </header>
-        <form name="loginform" action="/login_request" method="POST" class=sand-login-body>
-                {% csrf_token %}
-                <input data-corners="false" type="text" class="sand-login-input-text" name="user_id" id="user_id" placeholder="아이디">
-                <input  data-corners="false" type="password" class="sand-login-input-text" name="user_pw" id="user_pw" placeholder="비밀번호">
-                <input data-corners="false" class="sand-login-btn" type="submit" value="로그인" data-theme="b" id="login-btn">
+        <form name="loginform" action="" method="POST" class=sand-login-body data-ajax="fasle">
+            {% csrf_token %}
+            <label id="sand-login-err" class="{{ msg }} sand-msg-red sand-msg" style="font-size:0.7em; text-align: center;">일치하는 계정이 없습니다.</label>
+            <input data-corners="false" type="text" class="sand-login-input-text" name="user_id" id="user_id" placeholder="아이디">
+            <input  data-corners="false" type="password" class="sand-login-input-text" name="user_pw" id="user_pw" placeholder="비밀번호">
+            <input data-corners="false" class="sand-login-btn" type="submit" value="로그인" data-theme="b" id="login-btn">
         </form>
         <footer class="sand-login-footer">
-            <a href="register" data-role="button" data-corners="false">회원가입</a>
+            <a href="register" data-role="button" data-corners="false" data-ajax="false">회원가입</a>
         </footer>
     </section>
 </div>
