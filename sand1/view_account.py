@@ -14,7 +14,7 @@ def is_login(r):
         try:
             query_data = Account.objects.get(id=token[1], created_on=token[0])
             return query_data
-        except:
+        except ObjectDoesNotExist:
             return False
     else :
         return False
@@ -27,11 +27,12 @@ def login(r):
 
 def login_request(r):
     data = r.POST
+    print("[정보]", str(data))
     try:
         query_data = Account.objects.get(id=data['user_id'], pw=data['user_pw'])
     except ObjectDoesNotExist:
-        return render(r, 'login.html', {"msg": ""})
-
+        return render(r, 'login.html', {"msg": "."})
+    print("로그인에 성공함")
     #success
     r.session['token'] = convert_account_to_token(query_data)
     return HttpResponseRedirect(r.path)
@@ -54,4 +55,5 @@ def register_request(r):
     d = r.POST
     new_account = Account(id=d["user_id"],pw=d["user_pw"],name=d["user_name"])
     new_account.save()
-    return HttpResponseRedirect("login")
+    print("[정보] 새로운 계정이 생성됨")
+    return HttpResponseRedirect("/")

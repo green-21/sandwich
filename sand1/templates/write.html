@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
@@ -6,6 +7,7 @@
 
     <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script src="{% static 'js/write.js' %}" defer></script>
     <title>sandwich</title>
 </head>
 <body>
@@ -17,12 +19,11 @@
         <form action="write_request" method="POST" name="writeform" id="writeform" enctype="multipart/form-data" data-ajax="false">
             {% csrf_token %}
             <label for="post_pic">사진 선택</label>
-            <input type="file" name="post_pic" id="post_pic">
+            <input type="file" name="post_pic" id="post_pic" accept="image/gif, image/jpeg, image/png" capture="camera">
             <label for="post_msg">글</label>
             <textarea name="post_msg" id="post_msg"></textarea>
             <input type="submit" value="작성하기"> 
         </form>
-
     </section>
 </div>
 </body>

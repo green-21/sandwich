@@ -1,51 +1,58 @@
+{% load static %}
 <!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css"/>
-    <link rel="stylesheet" href="..\css\sandwich.css"/> 
-    <link rel="stylesheet" href="..\css\sandwich-PC.css" media="only screen and (min-width:600px)"/>
-    <link rel="stylesheet" href="..\css\sandwich-mobile.css" media="only screen and (max-width:599px)"/>
+    
+    <link rel="stylesheet" href="{% static 'css/sandwich.css' %}"/> 
+    <link rel="stylesheet" href="{% static 'css/sandwich-PC.css' %}" media="only screen and (min-width:600px)"/>
+    <link rel="stylesheet" href="{% static 'css/sandwich-mobile.css' %}" media="only screen and (max-width:599px)"/>
 
     <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    
+    <script src="{% static 'js/follow.js' %}" defer></script>
     <title>sandwich</title>
 </head>
 <body>
 <div data-role="page" id="sand-search" class="sand-page">
-    <header data-role="header" data-position="fixed" data-theme="b">
+    <header data-role="header" data-position="fixed" data-theme="b" data-id="sand-main-header">
         <h1>검색</h1>
     </header>
     <section data-role="content">
         <article class="sdf">
-            <ul data-role="listview" data-filter="true" >
-                <li>
-                    <a>
-                        <img src="..\static\1.jpg" alt="" class="sand-thumbnail">
-                        <h4>_lookatstory</h4>
-                        <p>정하윤</p>
-                    </a>
-                    <a href="#" data-icon="plus"></a>
-                </li>
-                <li>
-                    <a>
-                        <img src="..\static\4.jpg" alt="" class="sand-thumbnail">
-                        <h4>_lookatstory</h4>
-                        <p>정하윤</p>
-                    </a>
-                    <a href="#" data-icon="minus" data-theme="b"></a>
-                </li>
+            <ul data-role="listview" data-filter="true">
+                {% if accounts %}
+                    {% for account in accounts %}
+                        <li>
+                            <a href="/{{ account.id }}">
+                                {% if account.picture %}
+                                    <img src="{{ account.picture.url }}" class="sand-thumbnail">
+                                {% endif %}
+                                <h4>{{ account.id }}</h4>
+                                <p>{{ account.name }}</p>
+                            </a>
+                            {% if not account.id == user.id %}
+                                {% if user in account.followers.all %}
+                                    <a href="#" data-icon="minus" data-theme="b" class="sand-unfollow-btn ui-btn-active" value="{{ account.id }}"></a>
+                                {% else %}
+                                    <a href="#" data-icon="plus" data-theme="b" class="sand-follow-btn" value="{{ account.id }}"></a>
+                                {% endif %}
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                {% endif %}
             </ul>
         </article>
     </section>
-    <footer data-role="footer" data-position="fixed" data-id="">
-        <div data-role="navbar"  >
+    <footer data-role="footer" data-position="fixed" data-id="sand-main-footer">
+        <div data-role="navbar">
             <ul>
-                <li><a href="home.html" data-icon="home" ></a></li>
-                <li><a href="#" data-icon="search" class="ui-btn-active ui-state-persist"></a></li>
-                <li><a href="#" data-icon="plus"></a></li>
-                <li><a href="#" data-icon="heart"></a></li>
-                <li><a href="#" data-icon="user"></a></li>
+                <li><a href="/" data-icon="home" data-ajax="false"></a></li>
+                <li><a href="/search" data-icon="search" class="ui-btn-active ui-state-persist"></a></li>
+                <li><a href="/write" data-icon="plus" data-ajax="false"></a></li>
+                <li><a href="/u/{{user.id}}" data-icon="user" data-ajax="false"></a></li>
             </ul>
         </div>
     </footer>

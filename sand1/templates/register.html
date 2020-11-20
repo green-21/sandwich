@@ -21,7 +21,7 @@
         <header class="sand-login-header">
             <h1 id="sandwich" align="center">r e g i s t e r</h1>
         </header>
-        <form method="post" action="register_request" class=sand-login-body name="registerform">
+        <form method="post" action="register_request" class=sand-login-body name="registerform" data-ajax="false">
             {% csrf_token %}
             <input data-corners="false" type="text" class="sand-login-input-text" name="user_id" id="user_id" placeholder="아이디">
             <label for="user_id" style="font-size:0.7em; padding-left:10px;">5자이상 영어대소문자 숫자 언더바(_)</label>
@@ -35,7 +35,7 @@
         </form>
         <footer class="sand-login-footer">
 
-            <a href="login" data-role="button" data-corners="false" data-ajax="false">뒤로가기</a>
+            <a href="/" data-role="button" data-corners="false" data-ajax="false">뒤로가기</a>
         </footer>
     </section>
 </div>

@@ -11,77 +11,64 @@
 
     <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+    <script src="{% static 'js/follow.js' %}" defer></script>
+    <script src="{% static 'js/like.js' %}" defer></script>
     <title>sandwich</title>
 </head>
 <body>
 <div data-role="page" id="sand-main" class="sand-page">
-    <header data-role="header" data-position="fixed" data-theme="b">
+    <header data-role="header" data-position="fixed" data-theme="b" data-id="sand-main-header">
         <h1 id="sandwich">S A N D W I C H</h1>
     </header>
     <section data-role="content">
-        <article class="sand-post">
-            <header class="sand-post-header" >
-                <a href="#" class="sand-post-writer">
-                    <img class="sand-writer-thumbnail" src="..\static\1.jpg"><span class="sand-writer-name">_lookatstory</span>
-                </a>
-            </header>
-            <div class="sand-post-pic">
-                <img class="sand-pic-image" src="..\static\2.jpg">
-            </div>
-            <div class="sand-post-detail">
-                <ul data-role="listview">
-                    <li class="sand-detail-header">
-                        <a>
-                            <h4>_lookatstory</h4>
-                            <span class="ui-li-count">20</span>
+        {% if posts %}
+            {% for post in posts %}
+                <article class="sand-post">
+                    <header class="sand-post-header" >
+                        <a href="/u/{{ post.id }}" class="sand-post-writer">
+                            <img class="sand-writer-thumbnail" src="{{ post.id.picture.url }}"><span class="sand-writer-name">{{ post.id }}</span>
                         </a>
-                        <a href="#" data-icon="heart" data-theme="b"></a>
-                    </li>
-                    <li class="sand-detail-body">
-                        <p>나는 실제로 마를린 먼로를 본 적은 없습니다. 호호호호</p>
-                    </li>
-                    <li class="sand-detail-footer"><a data-role="button" data-icon="comment" data-iconpos="top"></a></li>
-                </ul>
-            </div>
-        </article>
-
-        <article class="sand-post">
-            <header class="sand-post-header" >
-                <a href="#d" class="sand-post-writer">
-                    <img class="sand-writer-thumbnail" src="..\static\3.jpg"><span class="sand-writer-name">_lookatstory</span>
-                </a>
-            </header>
-            <div class="sand-post-pic">
-                <img class="sand-pic-image" src="..\static\4.jpg">
-            </div>
-            <div class="sand-post-detail">
-                <ul data-role="listview">
-                    <li class="sand-detail-header">
-                        <a>
-                            <h4>_lookatstory</h4>
-                            <span class="ui-li-count">20</span>
-                        </a>
-                        <a href="#" data-icon="heart" data-theme="b"></a>
-                    </li>
-                    <li class="sand-detail-body"><p>이것은 나에게 재미를 가져다 주지 않을까 하고 생각하곤 합니다. ㅋ</p></li>
-                    <li class="sand-detail-footer"><a data-role="button" data-icon="comment" data-iconpos="top"></a></li>
-                </ul>
-            </div>
-        </article>
+                    </header>
+                    <div class="sand-post-pic">
+                        <img class="sand-pic-image" src="{{ post.picture.url }}">
+                    </div>
+                    <div class="sand-post-detail">
+                        <ul data-role="listview">
+                            <li class="sand-detail-header">
+                                <a href="/u/{{ post.id }}">
+                                    <h4>{{ post.id }}</h4>
+                                    <span class="ui-li-count">{{ post.likes.count }}</span>
+                                </a>
+                                {% if user in post.likes.all %}
+                                    <a href="#" data-icon="heart" data-theme="b" class="sand-unlike-btn ui-btn-active" value="{{ post.no }}/p"></a>
+                                {% else %}
+                                    <a href="#" data-icon="heart" data-theme="b" class="sand-like-btn" value="{{ post.no }}/p"></a>
+                                {% endif %}
+                            </li>
+                            <li class="sand-detail-body">
+                                <p>{{ post.created_on|date:"m월 d일" }}</p><p>{{ post.msg }}</p><br>
+                                <p>댓글 {{ post.comments.all.count }}개</p>
+                            </li>
+                            <li class="sand-detail-footer"><a href="/p/{{ post.no }}" data-role="button" data-icon="comment" data-iconpos="top"></a></li>
+                        </ul>
+                    </div>
+                </article>
+            {% endfor %}
+        {% endif %}
         <article class="sand-post-end ui-body ui-body-a">
             <div>
                 <p align="center">더 이상 게시글이 없습니다.</p>
             </div>
         </article>
     </section>
-    <footer data-role="footer" data-position="fixed" data-id="">
-        <div data-role="navbar"  >
+    <footer data-role="footer" data-position="fixed" data-id="sand-main-footer">
+        <div data-role="navbar">
             <ul>
-                <li><a href="" data-icon="home" class="ui-btn-active ui-state-persist"></a></li>
-                <li><a href="#" data-icon="search"></a></li>
-                <li><a href="write" data-icon="plus"></a></li>
-                <li><a href="#" data-icon="heart"></a></li>
-                <li><a href="#" data-icon="user"></a></li>
+                <li><a href="/" data-icon="home" class="ui-btn-active ui-state-persist" data-ajax="false"></a></li>
+                <li><a href="/search" data-icon="search" data-ajax="false"></a></li>
+                <li><a href="/write" data-icon="plus" data-ajax="false"></a></li>
+                <li><a href="/u/{{user.id}}" data-icon="user" data-ajax="false"></a></li>
             </ul>
         </div>
     </footer>

@@ -1,0 +1,118 @@
+{% load static %}
+<!DOCTYPE html>
+<head>  
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css"/>
+    
+    <link rel="stylesheet" href="{% static 'css/sandwich.css' %}"/> 
+    <link rel="stylesheet" href="{% static 'css/sandwich-PC.css' %}" media="only screen and (min-width:600px)"/>
+    <link rel="stylesheet" href="{% static 'css/sandwich-mobile.css' %}" media="only screen and (max-width:599px)"/>
+
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+    <script src="{% static 'js/follow.js' %}" defer></script>
+    <script src="{% static 'js/like.js' %}" defer></script>
+    <script src="{% static 'js/setting.js' %}" defer></script>
+    <title>sandwich</title>
+</head>
+<body>
+<div data-role="page" id="sand-profile" class="sand-profile">
+        <header data-role="header" data-position="fixed" data-theme="b">
+        <h1>{{ host.id }}</h1>
+        {% if user == host %}
+            <a href="#" data-theme="a">게시글 삭제</a>
+            <a href="#sand-profile-setting" class="ui-btn-right" data-theme="a" >프로필 설정</a>
+        {% else %}
+            <a data-rel="back" data-icon="back" data-iconpos="left">뒤로</a>
+        {% endif %}
+    </header>
+    <section data-role="content">
+        <article class="sand-profile-detail">
+            <img src="{{ host.picture.url }}" alt="" class="sand-thumbnail-big">
+            <h2 align="center">{{ host.id }}</h2>
+            <p>{{ host.name }}</p>
+            {% if host.msg %}
+                <p>" {{ host.msg }} "</p>
+            {% endif %}
+        </article>
+        <article class="sand-profile-extra ui-grid-b">
+            <div class="ui-block-a">
+                <h5>게시글</h5>
+                <p>{{ posts.all.count }}</p>
+            </div>
+            <div class="ui-block-b">
+                <h5>팔로우</h5>
+                <p>{{ host.follows.all.count }}</p>
+            </div>
+            <div class="ui-block-c">
+                <h5>팔로워</h5>
+                <p>{{ host.followers.all.count }}</p>
+            </div>
+        </article>
+        <article class="sand-profile-posts ui-grid-b">
+            {% if posts %}
+                {% for post in posts.all %}
+                    <div class="ui-block-{% cycle 'a' 'b' 'c'%}"><a href="/p/{{ post.no }}"><img src="{{ post.picture.url }}" class="sand-post-thumbnail"></a></div>
+                {% endfor %}
+            {% else %}
+                <div><h4 align="center">등록된 글이 없습니다!!</h2></div>
+            {% endif %}
+        </article>
+    </section>
+    <footer data-role="footer" data-position="fixed" data-id="">
+        <div data-role="navbar">
+            <ul>
+                <li><a href="/" data-icon="home" data-ajax="false"></a></li>
+                <li><a href="/search" data-icon="search"></a></li>
+                <li><a href="/write" data-icon="plus" data-ajax="false"></a></li>
+                <li><a href="/u/{{user.id}}" data-icon="user" class="ui-btn-active ui-state-persist" data-ajax="false"></a></li>
+            </ul>
+        </div>
+    </footer>
+</div>
+{% if user == host %}
+<div data-role="dialog" id="sand-profile-setting">
+    <header data-role="header" data-position="fixed" data-theme="b">
+        <h1>프로필</h1>
+    </header>
+    <section data-role="content">
+        <div data-role="collapsible">
+            <h3>프로필 사진</h3>
+            <div>
+                <div align='center'><img src="{{ user.picture.url }}" style="width:80px; height:80px; border-radius:100%;"></div>
+                <form action="/profile_setting_request" method="POST" name="profileform" id="profileform" enctype="multipart/form-data" data-ajax="false">
+                    {% csrf_token %}
+                    <input type="hidden" name="formtype" value="set1">
+                    <fieldset>
+                        <input type="radio" name="pic_option" id="pic_option0" value="0">
+                        <label for="pic_option0">기본 프로필 사용</label>
+                        <input type="radio" name="pic_option" id="pic_option1" value="1" checked>
+                        <label for="pic_option1">프로필 업로드</label>
+                    </fieldset>
+                    <label for="user_pic">사진 선택</label>
+                    <input type="file" name="user_pic" id="user_pic" accept="image/gif, image/jpeg, image/png" capture="camera">
+                    <input type="submit" value="변경"> 
+                </form>
+            </div>
+        </div>
+        <div data-role="collapsible">
+            <h3>이름/상태 메시지</h3>
+            <form action="/profile_setting_request" method="POST" name="profileform" id="profileform" enctype="multipart/form-data" data-ajax="false">
+                {% csrf_token %}
+                <input type="hidden" name="formtype" value="set2">
+                <label for="user_name">이름</label>
+                <input type="text" name="user_name" id="user_name" value="{{ user.name }}">
+                <label for="user_msg">메시지</label>
+                <input type="text" name="user_msg" id="user_msg" value="{{ user.msg }}">
+                <input type="submit" value="변경"> 
+            </form>
+        </div>
+
+
+    </section>
+</div>
+{% endif %}
+</body>
+</html>

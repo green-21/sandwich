@@ -1,4 +1,4 @@
-$('form[name=loginform]').submit(function(event) {
+function loginCheck() {
     let a = $('#user_id');
     let b = $('#user_pw');
     if(a.val()=="" || b.val()=="") {
@@ -7,4 +7,4 @@ $('form[name=loginform]').submit(function(event) {
     }
     let pwd = md5(b.val());
     b.val(pwd);
-});
+}

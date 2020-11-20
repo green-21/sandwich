@@ -1,48 +1,81 @@
+{% load static %}
 <!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css"/>
-    <link rel="stylesheet" href="..\css\sandwich.css"/> 
-    <link rel="stylesheet" href="..\css\sandwich-PC.css" media="only screen and (min-width:600px)"/>
-    <link rel="stylesheet" href="..\css\sandwich-mobile.css" media="only screen and (max-width:599px)"/>
+    
+    <link rel="stylesheet" href="{% static 'css/sandwich.css' %}"/> 
+    <link rel="stylesheet" href="{% static 'css/sandwich-PC.css' %}" media="only screen and (min-width:600px)"/>
+    <link rel="stylesheet" href="{% static 'css/sandwich-mobile.css' %}" media="only screen and (max-width:599px)"/>
 
     <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+    <script src="{% static 'js/follow.js' %}" defer></script>
+    <script src="{% static 'js/like.js' %}" defer></script>
+    <script src="{% static 'js/comment.js' %}" defer></script>
     <title>sandwich</title>
 </head>
 <body>
 <div data-role="page" id="sand-post" class="sand-page">
-    <header data-role="header" data-position="fixed" data-theme="b" data-add-back-btn="true" data-back-btn-text="">
-        <h1 >댓글</h1>
-    </header>
+    <header data-role="header" data-position="fixed" data-theme="b">
+        <a data-rel="back" data-icon="back" data-iconpos="left">뒤로</a>
+        <h1>댓글</h1>
+    </header> 
     <section data-role="content">
         <article class="sand-post">
             <header class="sand-post-header" >
-                <a href="#" class="sand-post-writer">
-                    <img class="sand-writer-thumbnail" src="..\static\1.jpg"><span class="sand-writer-name">_lookatstory</span>
+                <a href="/u/{{ post.id }}" class="sand-post-writer">
+                    <img class="sand-writer-thumbnail" src="{{ post.id.picture.url }}"><span class="sand-writer-name">{{ post.id }}</span>
                 </a>
             </header>
             <div class="sand-post-pic">
-                <img class="sand-pic-image" src="..\static\2.jpg">
+                <img class="sand-pic-image" src="{{ post.picture.url }}">
             </div>
             <div class="sand-post-detail">
                 <ul data-role="listview">
                     <li class="sand-detail-header">
-                        <a>
-                            <h4>_lookatstory</h4>
-                            <span class="ui-li-count">20</span>
+                        <a href="u/{{ post.id}}">
+                            <h4>{{ post.id }}</h4>
+                            <span class="ui-li-count">{{ post.likes.all.count }}</span>
                         </a>
-                        <a href="#" data-icon="heart" data-theme="b"></a>
+                        {% if user in post.likes.all %}
+                            <a href="#" data-icon="heart" data-theme="b" class="sand-unlike-btn ui-btn-active" value="{{ post.no }}/p"></a>
+                        {% else %}
+                            <a href="#" data-icon="heart" data-theme="b" class="sand-like-btn" value="{{ post.no }}/p"></a>
+                        {% endif %}
                     </li>
-                    <li class="sand-detail-body"><p>10월 2일</p><p>나는 실제로 마를린 먼로를 본 적은 없습니다. 호호호호</p></li>
+                    <li class="sand-detail-body"><p>{{ post.created_on|date:"m월 d일" }}</p><p>{{ post.msg }}</p></li>
                 </ul>
             </div>
         </article>
         <article class="sand-post sand-comment">
             <div class="ui-bar ui-bar-b">댓글</div>
             <ul data-role="listview" class="sand-comment-list">
-                <li>
+                {% if post.comments.all %}
+                    {% for comment in post.comments.all %}
+                        <li>
+                            <a>
+                                <img class="sand-thumbnail" src="{{ comment.id.picture.url }}">
+                                <h4>{{ comment.id }}</h4>
+                                <p>{{ comment.msg }}</p>
+                                <p>{{ comment.created_on|date:"m월 d일"}}</p>
+                                <span class="ui-li-count">{{ comment.likes.all.count }}</span>
+                            </a>
+                            {% if user in comment.likes.all %}
+                                <a href="#" data-icon="heart" data-theme="b" class="sand-unlike-btn ui-btn-active" value="{{ comment.no }}/c"></a>
+                            {% else %}
+                                <a href="#" data-icon="heart" data-theme="b" class="sand-like-btn" value="{{ comment.no }}/c"></a>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                {% else %}
+                        <li>
+                            <h2>댓글이 존재하지 않습니다.</h2>
+                        </li>
+                {% endif %}
+                <!-- <li>
                     <a>
                         <img class="sand-thumbnail" src="..\static\3.jpg">
                         <h4>_lookatstory</h4>
@@ -51,34 +84,25 @@
                         <span class="ui-li-count">1</span>
                     </a>
                     <a href="#" data-icon="heart" data-theme="b"></a>
-                </li>
-                <li>
-                    <a>
-                        <img class="sand-thumbnail" src="..\static\4.jpg">
-                        <h4>_lookatstory</h4>
-                        <p>일이삼사오일이삼사오육칠팔구십일이삼사오육칠팔구십일이삼사오육칠팔구십</p>
-                        <p>11월 21일</p>
-                        <span class="ui-li-count">1</span>
-                    </a>
-                    <a href="#" data-icon="heart" data-theme="b"></a>
-                </li>
+                </li> -->
             </ul>
         </article>
     </section>
-    <footer data-role="footer" data-position="fixed" data-id="">
+    <footer data-role="footer" data-position="fixed" data-id="sand-main-footer">
         <div class="sand-comment-form-background">
-            <form id="sand-comment-form" action="" data-role="controlgroup" data-type="horizontal">
-                <input type="text" name="" id="" data-wrapper-class="controlgroup-textinput ui-btn" placeholder="댓글을 입력하세요">
+            <form id="sand-comment-form" name="sand-comment-form" method="POST" action="/comment_request" data-role="controlgroup" data-type="horizontal" data-ajax="false">
+                {% csrf_token %}
+                <input type="hidden" name="post-n" value="{{ post.no }}">
+                <input type="text" name="comment-msg" id="comment-msg" data-wrapper-class="controlgroup-textinput ui-btn" placeholder="댓글을 입력하세요">
                 <input type="submit" value="게시">
             </form>
         </div>
         <div data-role="navbar">
             <ul>
-                <li><a href="home.html" data-icon="home" class="ui-btn-active ui-state-persist"></a></li>
-                <li><a href="#" data-icon="search"></a></li>
-                <li><a href="#" data-icon="plus"></a></li>
-                <li><a href="#" data-icon="heart"></a></li>
-                <li><a href="#" data-icon="user"></a></li>
+                <li><a href="/" data-icon="home" data-ajax="false"></a></li>
+                <li><a href="search" data-icon="search" class="" data-ajax="false"></a></li>
+                <li><a href="write" data-icon="plus" data-ajax="false"></a></li>
+                <li><a href="/u/{{user.id}}" data-icon="user" data-ajax="false"></a></li>
             </ul>
         </div>
     </footer>
