@@ -4,6 +4,7 @@
     font-family: 'Gloria Hallelujah', cursive;
     font-weight: 400;
 }
+.align-center { text-align:center !important; }
 /* login and register */
 .sand-form-content {
     background-color: white;

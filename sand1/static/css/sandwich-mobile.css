@@ -44,6 +44,7 @@ form#sand-comment-form {
 .controlgroup-textinput {
     width:calc(100% - 90px);
 }
+.sand-profile-posts .ui-block-b { text-align:center; }
 
 .sand-post-thumbnail {
     border-radius: 5px;
@@ -51,9 +52,50 @@ form#sand-comment-form {
     height:150px;
     border:1px solid rgb(200,200,200);
 }
-div.ui-block-b .sand-post-thumbnail {
-    margin-left:5%;
+@media only screen and (max-width:449px){
+    .sand-post-thumbnail {
+        width: 140px;
+        height: 140px;
+    }
 }
+
+@media only screen and (max-width:419px) {
+    .sand-post-thumbnail {
+        width: 130px;
+        height: 130px;
+    }
+}
+@media only screen and (max-width:389px) {
+    .sand-post-thumbnail {
+        width: 120px;
+        height: 120px;
+    }
+}
+@media only screen and (max-width:359px) {
+    .sand-post-thumbnail {
+        width: 110px;
+        height: 110px;
+    }
+}
+@media only screen and (max-width:329px) {
+    .sand-post-thumbnail {
+        width: 100px;
+        height: 100px;
+    }
+}
+@media only screen and (max-width:299px) {
+    .sand-post-thumbnail {
+        width: 90px;
+        height: 90px;
+    }
+}
+@media only screen and (max-width:275px) {
+    .sand-post-thumbnail {
+        width: 70px;
+        height: 70px;
+    }
+}
+
 div.ui-block-c .sand-post-thumbnail {
     position: absolute;
     right:0;

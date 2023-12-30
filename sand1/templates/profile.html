@@ -22,7 +22,6 @@
         <header data-role="header" data-position="fixed" data-theme="b">
         <h1>{{ host.id }}</h1>
         {% if user == host %}
-            <a href="#" data-theme="a">게시글 삭제</a>
             <a href="#sand-profile-setting" class="ui-btn-right" data-theme="a" >프로필 설정</a>
         {% else %}
             <a data-rel="back" data-icon="back" data-iconpos="left">뒤로</a>
@@ -31,7 +30,7 @@
     <section data-role="content">
         <article class="sand-profile-detail">
             <img src="{{ host.picture.url }}" alt="" class="sand-thumbnail-big">
-            <h2 align="center">{{ host.id }}</h2>
+            <h2 class="align-center">{{ host.id }}</h2>
             <p>{{ host.name }}</p>
             {% if host.msg %}
                 <p>" {{ host.msg }} "</p>
@@ -54,10 +53,10 @@
         <article class="sand-profile-posts ui-grid-b">
             {% if posts %}
                 {% for post in posts.all %}
-                    <div class="ui-block-{% cycle 'a' 'b' 'c'%}"><a href="/p/{{ post.no }}"><img src="{{ post.picture.url }}" class="sand-post-thumbnail"></a></div>
+                    <div class="ui-block-{% cycle 'a' 'b ' 'c'%}"><a href="/p/{{ post.no }}"><img src="{{ post.picture.url }}" class="sand-post-thumbnail"></a></div>
                 {% endfor %}
             {% else %}
-                <div><h4 align="center">등록된 글이 없습니다!!</h2></div>
+                <div><h4 class="align-center">등록된 글이 없습니다!!</h2></div>
             {% endif %}
         </article>
     </section>
@@ -81,7 +80,7 @@
         <div data-role="collapsible">
             <h3>프로필 사진</h3>
             <div>
-                <div align='center'><img src="{{ user.picture.url }}" style="width:80px; height:80px; border-radius:100%;"></div>
+                <div class='align-center'><img src="{{ user.picture.url }}" style="width:80px; height:80px; border-radius:100%;"></div>
                 <form action="/profile_setting_request" method="POST" name="profileform" id="profileform" enctype="multipart/form-data" data-ajax="false">
                     {% csrf_token %}
                     <input type="hidden" name="formtype" value="set1">
